@@ -1,3 +1,4 @@
+import 'package:booksy_app/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -5,18 +6,24 @@ void main() {
 }
 
 class BooksyApp extends StatelessWidget {
-  const BooksyApp ({super.key});
+  const BooksyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
-        title: 'Booksy',
-        theme: ThemeData(
-        primaryColor: Colors.purple
+      title: 'Booksy',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green, 
+          primary: Colors.green, 
+        ),
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,  
+        ),
       ),
-      home: const BottomNavigationWidget()
-      
+      home: const BottomNavigationWidget(),
     );
   }
 }
@@ -30,7 +37,7 @@ class BottomNavigationWidget extends StatefulWidget{
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget>{
   int _selectedIndex = 0;
-  static const List<Widget> _sections = [Text('Inicio'), Text('Biblioteca'),];
+  static const List<Widget> _sections = [HomeScreen(), Text('Biblioteca'),];
 
   @override
   Widget build(BuildContext context) {

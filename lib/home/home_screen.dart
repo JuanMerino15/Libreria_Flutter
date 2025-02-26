@@ -1,3 +1,4 @@
+import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
 import 'package:flutter/material.dart';
 
@@ -108,6 +109,7 @@ class ListItemBook extends StatelessWidget {
   }
   
   void _openBookDetails(BuildContext context, Book book) {
-    // navegar a la pantalla de detalles
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) => BookDetailsScreen(book)));
   }
 }

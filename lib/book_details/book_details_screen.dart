@@ -1,5 +1,7 @@
 import 'package:booksy_app/model/book.dart';
+import 'package:booksy_app/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookDetailsScreen extends StatelessWidget {
   final Book _book;
@@ -15,12 +17,54 @@ class BookDetailsScreen extends StatelessWidget {
         child: Column(children: [
           BookCoverWidget(_book.coverUrl),
           BookInfoWidget(_book.title, _book.author, _book.description),
-          ElevatedButton(onPressed: () {}, child: const Text("Acción"),)
+          BookActionsWidget(_book.id),
         ],
         ),
       ),
     );
   }
+}
+
+class BookActionsWidget extends StatelessWidget{
+  final int bookId;
+  const BookActionsWidget(this.bookId, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+     return BlocBuilder<BookshelfBloc, BookshelfState>(
+      builder: (context, bookshelfState)  {
+        var action = () => _addToBookShelf(context, bookId );
+        var label = "Agregar a mi estante";
+        var color = Colors.green;
+
+        if (bookshelfState.bookIds.contains(bookId)){
+          action = () => _removeFromBookShelf(context, bookId);
+          label = "Quitar de mi estante";
+          color = Colors.amber;
+        }
+         return ElevatedButton(
+            onPressed: action,
+            style: ElevatedButton.styleFrom(backgroundColor: color), 
+            child: Text(
+              label, 
+              style: const TextStyle(color: Colors.white), // Aquí está el cambio correcto
+            ),
+          );
+
+        }); 
+      
+  }
+  
+  void _addToBookShelf(BuildContext context, int bookId) {
+    var bookshelfBloc = context.read<BookshelfBloc>();
+    bookshelfBloc.add(AddBookToBookShelf(bookId));
+  }
+
+    void _removeFromBookShelf(BuildContext context, int bookId) {
+    var bookshelfBloc = context.read<BookshelfBloc>();
+    bookshelfBloc.add(RemoveBookFromBookShelf(bookId));
+  }
+
 }
 
 class BookInfoWidget extends StatelessWidget{
@@ -57,7 +101,6 @@ class BookCoverWidget extends StatelessWidget {
    return Container(
     margin: const EdgeInsets.only(top: 20, bottom: 20),
     width: 230,
-    child: Image.asset(_coverUrl),
     decoration: BoxDecoration(boxShadow: [BoxShadow(
       color: Colors.grey.withOpacity(0.5),
       spreadRadius: 10,
@@ -66,7 +109,8 @@ class BookCoverWidget extends StatelessWidget {
     
     ],
     
-    )
+    ),
+    child: Image.asset(_coverUrl)
     
     );
     

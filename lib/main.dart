@@ -1,6 +1,9 @@
+import 'package:booksy_app/bookshelf/bookshelf_screen.dart';
 import 'package:booksy_app/categories/categories_screen.dart';
 import 'package:booksy_app/home/home_screen.dart';
+import 'package:booksy_app/state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(const BooksyApp());
@@ -11,7 +14,10 @@ class BooksyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+      return BlocProvider(
+        create: (_) => BookshelfBloc(BookshelfState([])),
+        child:
+     MaterialApp(
       title: 'Booksy',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -25,6 +31,7 @@ class BooksyApp extends StatelessWidget {
         ),
       ),
       home: const BottomNavigationWidget(),
+      ),
     );
   }
 }
@@ -38,7 +45,7 @@ class BottomNavigationWidget extends StatefulWidget{
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget>{
   int _selectedIndex = 0;
-  static const List<Widget> _sections = [HomeScreen(), CategoriesScreen(),];
+  static const List<Widget> _sections = [HomeScreen(), CategoriesScreen(), BookshelfScreen(),];
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +58,9 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget>{
         BottomNavigationBarItem(
           icon:  Icon(Icons.local_library),
           label: 'Biblioteca'),
+           BottomNavigationBarItem(
+          icon:  Icon(Icons.auto_stories),
+          label: 'Mi Estante'),
       ],
        currentIndex: _selectedIndex,
        onTap: _onItemTapped,

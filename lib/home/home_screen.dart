@@ -1,39 +1,53 @@
+import 'dart:ffi';
+
 import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
+import 'package:booksy_app/services/books_services.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
-  static final List<Book> _books = [
-    Book(
-      id: 1,
-      title: "Essentialism: The disciplined pursuit of less",
-      author: "Greg Mckeown",
-      description: "Have you ever found yourself struggling with information overload?",
-      coverUrl: "assets/images/esencialismo1.jpg",
-    ),
-     Book(
-      id: 2,
-      title: "Einstein: His life an Universe",
-      author: "Walter Isaacson",
-      description: "Einstein was a rebel and nonconformist from boyhood days",
-      coverUrl: "assets/images/Book1.webp",
-    ),
-    
-  ];
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Book> _books = [];
+  @override
+  void initState(){
+    super.initState();
+    _getLastBooks();
+  }
+
+  void _getLastBooks() async{
+    var lastBooks = await BooksService().getLastBook();
+    setState(() {
+      _books = lastBooks;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var showProgress = _books.isEmpty;
+    var listLength = showProgress ? 3 : _books.length + 2;
     return Container(
       margin: const EdgeInsets.all(16),
       child: ListView.builder(
-        itemCount: _books.length + 2, 
+        itemCount: listLength, 
         itemBuilder:  (context,index){
           if (index == 0) {
             return const HeaderWidget();
           }
           if (index == 1) {
             return const ListItemHeader();
+          }
+          if(showProgress){
+            return const Padding(
+              padding:  EdgeInsets.only(top: 50),
+              child:  Center(child: CircularProgressIndicator()),
+            );
+      
           }
           return ListItemBook(_books[index - 2]);
       

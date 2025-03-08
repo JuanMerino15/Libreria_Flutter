@@ -1,3 +1,4 @@
+import 'package:booksy_app/add_book/add_book_screen.dart';
 import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
 import 'package:booksy_app/services/books_services.dart';
@@ -12,14 +13,43 @@ class BookshelfScreen extends StatelessWidget {
   Widget build(BuildContext context) {
       return BlocBuilder<BookshelfBloc, BookshelfState>(
       builder: (context, bookshelfState)  {
-
-        if(bookshelfState.bookIds.isEmpty) {
-      return Center(
+        var emptyListWidget = Center(
         child: Text("Aun no tienes ningun libro en tu estante",
           style: Theme.of(context).textTheme.headlineMedium, 
           textAlign: TextAlign.center,       
-        ));
-    }
+        ),
+        );
+        var mainWidget = bookshelfState.bookIds.isEmpty 
+        ? emptyListWidget 
+        :  MyBooksGrid(bookshelfState.bookIds);
+    return Column(
+      children: [
+        Expanded(child: mainWidget),
+        ElevatedButton(onPressed: () {
+          _navigateToAddNewBookScreen(context);
+          
+        }, child: const Text("Agregar nuevo libro"))
+      ],
+    );
+  });
+}
+
+  void _navigateToAddNewBookScreen(BuildContext context) {
+    Navigator.push(context, 
+    MaterialPageRoute(
+      builder: (context) => const AddBookScreen(),));
+  }
+      }
+
+class MyBooksGrid extends StatelessWidget{
+  final List<String> booksIds;
+
+  const MyBooksGrid(this.booksIds, {super.key});
+  
+    
+      @override
+      Widget build(BuildContext context) {
+   
     return Container(
       margin: const EdgeInsets.all(16),
       child: GridView.builder(
@@ -29,14 +59,14 @@ class BookshelfScreen extends StatelessWidget {
           mainAxisSpacing: 10,
           childAspectRatio: 0.7,
           ),
-        itemCount: bookshelfState.bookIds.length,
+        itemCount: booksIds.length,
         itemBuilder: (context, index) {
-          return BookCoverItem(bookshelfState.bookIds[index]);
+          return BookCoverItem(booksIds[index]);
         }),
     );
-  });
-}
       }
+  }
+
     
 
 class  BookCoverItem extends StatefulWidget {  

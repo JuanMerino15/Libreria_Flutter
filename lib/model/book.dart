@@ -23,7 +23,7 @@ class Book {
       title: json['name'] as String, 
       author: json['author'] as String,
       description: json['summary'] as String,
-      coverUrl: json['coverUrl'] as String,
+      coverUrl: json.containsKey('coverUrl') ? json['coverUrl'] as String : "assets/images/LibroBlanco.jpg" ,
   
     );
    

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:booksy_app/model/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/src/widgets/editable_text.dart';
 
 class BooksService{
 
@@ -10,7 +11,7 @@ class BooksService{
    toFirestore: (book, _) => book.toJson(),);
 
   Future<List<Book>>getLastBooks() async {
-     var result = await booksRef.limit(3).get().then((value) => value);
+     var result = await booksRef.limit(10).get().then((value) => value);
      List<Book> books = [];
      for (var doc in result.docs) {
       books.add(doc.data());
@@ -26,4 +27,15 @@ class BooksService{
     }
     throw HttpException("Book not found");
     }
+
+  Future<String> saveBook(String title, String author, String summary) async {
+    var reference = FirebaseFirestore.instance.collection("books");
+    var result = await reference.add({
+      'name' : title,
+      'author' : author,
+      'summary' : summary,
+    });
+
+    return Future.value(result.id);
+  }
 }

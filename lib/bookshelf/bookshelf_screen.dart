@@ -40,7 +40,7 @@ class BookshelfScreen extends StatelessWidget {
     
 
 class  BookCoverItem extends StatefulWidget {  
- final int _bookId;
+ final String _bookId;
  const  BookCoverItem(this._bookId, {super.key});
 
   @override
@@ -52,10 +52,10 @@ class _BookCoverItemState extends State<BookCoverItem> {
   @override
   void initState(){
     super.initState();
-    _getBook(widget._bookId);
+    _getBook(widget._bookId as String);
   }
 
-  void _getBook(int bookId) async {
+  void _getBook(String bookId) async {
     var book = await BooksService().getBook(bookId);
     setState(() {
       _book = book;

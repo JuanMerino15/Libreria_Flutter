@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
 import 'package:booksy_app/services/books_services.dart';
@@ -21,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _getLastBooks() async{
-    var lastBooks = await BooksService().getLastBook();
+    var lastBooks = await BooksService().getLastBooks();
     setState(() {
       _books = lastBooks;
     });

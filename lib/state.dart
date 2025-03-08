@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookshelfState {
-  List<int> bookIds;
+  List<String> bookIds;
   BookshelfState(this.bookIds);
 }
 
@@ -10,13 +10,13 @@ abstract class BookshelfEvent {
 }
 
 class AddBookToBookShelf extends BookshelfEvent{
-  final int bookId;
+  final String bookId;
    AddBookToBookShelf(this.bookId);
 
 }
 
 class RemoveBookFromBookShelf extends BookshelfEvent {
-  final int bookId;
+  final String bookId;
   const RemoveBookFromBookShelf(this.bookId);
 }
 

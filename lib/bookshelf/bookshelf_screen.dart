@@ -2,9 +2,12 @@ import 'package:booksy_app/add_book/add_book_screen.dart';
 import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
 import 'package:booksy_app/services/books_services.dart';
+
 import 'package:booksy_app/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 
 class BookshelfScreen extends StatelessWidget {
   const BookshelfScreen({super.key});
@@ -41,37 +44,33 @@ class BookshelfScreen extends StatelessWidget {
   }
       }
 
-class MyBooksGrid extends StatelessWidget{
-  final List<String> booksIds;
+class MyBooksGrid extends StatelessWidget {
+  final List<String> bookIds;
+  const MyBooksGrid(this.bookIds, {Key? key}) : super(key: key);
 
-  const MyBooksGrid(this.booksIds, {super.key});
-  
-    
-      @override
-      Widget build(BuildContext context) {
-   
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(16),
       child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: 0.7,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.7,
           ),
-        itemCount: booksIds.length,
-        itemBuilder: (context, index) {
-          return BookCoverItem(booksIds[index]);
-        }),
+          itemCount: bookIds.length,
+          itemBuilder: (context, index) {
+            return BookCoverItem(bookIds[index]);
+          }),
     );
-      }
   }
+}
 
-    
+class BookCoverItem extends StatefulWidget {
+  final String _bookId;
 
-class  BookCoverItem extends StatefulWidget {  
- final String _bookId;
- const  BookCoverItem(this._bookId, {super.key});
+  const BookCoverItem(this._bookId, {Key? key}) : super(key: key);
 
   @override
   State<BookCoverItem> createState() => _BookCoverItemState();
@@ -79,10 +78,11 @@ class  BookCoverItem extends StatefulWidget {
 
 class _BookCoverItemState extends State<BookCoverItem> {
   Book? _book;
+
   @override
-  void initState(){
+  void initState() {
     super.initState();
-    _getBook(widget._bookId as String);
+    _getBook(widget._bookId);
   }
 
   void _getBook(String bookId) async {
@@ -91,26 +91,39 @@ class _BookCoverItemState extends State<BookCoverItem> {
       _book = book;
     });
   }
- @override
+
+  @override
   Widget build(BuildContext context) {
-    if(_book == null){
+    if (_book == null) {
       return const Center(child: CircularProgressIndicator());
     }
+
     return InkWell(
-      onTap: (){
+      onTap: () {
         _openBookDetails(_book!, context);
       },
       child: Ink.image(
         fit: BoxFit.fill,
-        image: AssetImage(_book!.coverUrl)));
-  }
-  
-  _openBookDetails(Book book, BuildContext context) {
-    Navigator.push(context,
-     MaterialPageRoute(
-      builder: (context) => BookDetailsScreen(book),
+        image: _getImageWidget(_book!.coverUrl),  
       ),
-     );
+    );
   }
-  
+
+  _openBookDetails(Book book, BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BookDetailsScreen(book),
+      ),
+    );
   }
+
+ 
+  _getImageWidget(String coverUrl) {
+    if (coverUrl.startsWith("http")) {
+      return NetworkImage(coverUrl);  
+    } else {
+      return AssetImage(coverUrl);   
+    }
+  }
+}

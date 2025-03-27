@@ -90,7 +90,6 @@ class ListItemBook extends StatelessWidget {
         borderRadius: BorderRadius.circular(4.0),
         onTap: () {
           _openBookDetails(context, _book);
-
         } ,
          child: Padding(
            padding: const EdgeInsets.all(8.0),
@@ -98,20 +97,20 @@ class ListItemBook extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
-                child: Image.asset(_book.coverUrl, width: 120,),
+                child: _getImageWidget(_book.coverUrl), // Cambiar aquí para manejar imágenes externas o locales
               ),
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                Flexible(child: Text(_book.title, style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 18))),
-                const SizedBox(height: 5,),
-                Flexible(child: Text(_book.author, style: Theme.of(context).textTheme.titleMedium)),
-                const SizedBox(height: 15,),
-                Flexible(child: Text(_book.description, maxLines: 4, overflow: TextOverflow.ellipsis,style: Theme.of(context).textTheme.bodyMedium)),
-              ],)
+                    Flexible(child: Text(_book.title, style: Theme.of(context).textTheme.headlineLarge!.copyWith(fontSize: 18))),
+                    const SizedBox(height: 5),
+                    Flexible(child: Text(_book.author, style: Theme.of(context).textTheme.titleMedium)),
+                    const SizedBox(height: 15),
+                    Flexible(child: Text(_book.description, maxLines: 4, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodyMedium)),
+                  ],
+                ),
               )
-              
             ],
            ),
          ),
@@ -123,5 +122,14 @@ class ListItemBook extends StatelessWidget {
   void _openBookDetails(BuildContext context, Book book) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) => BookDetailsScreen(book)));
+  }
+
+  // Método para determinar si la URL es externa o local
+  _getImageWidget(String coverUrl) {
+    if (coverUrl.startsWith("http")) {
+      return Image.network(coverUrl, width: 120, fit: BoxFit.cover); // Para URL externas
+    } else {
+      return Image.asset(coverUrl, width: 120, fit: BoxFit.cover);  // Para imágenes locales
+    }
   }
 }

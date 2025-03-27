@@ -98,22 +98,28 @@ class BookCoverWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return Container(
-    margin: const EdgeInsets.only(top: 20, bottom: 20),
-    width: 230,
-    decoration: BoxDecoration(boxShadow: [BoxShadow(
-      color: Colors.grey.withOpacity(0.5),
-      spreadRadius: 10,
-      blurRadius: 20,
-    ),
-    
-    ],
-    
-    ),
-    child: Image.asset(_coverUrl)
-    
+    return Container(
+      margin: const EdgeInsets.only(top: 20, bottom: 20),
+      width: 230,
+      height: 300, // Añadir un tamaño fijo para que todas las imágenes tengan el mismo tamaño
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 10,
+            blurRadius: 20,
+          ),
+        ],
+      ),
+      child: _getImageWidget(_coverUrl),
     );
-    
   }
 
+  _getImageWidget(String coverUrl) {
+    if (coverUrl.startsWith("http")) {
+      return Image.network(coverUrl, fit: BoxFit.cover); 
+    } else {
+      return Image.asset(coverUrl, fit: BoxFit.cover);  
+    }
+  }
 }

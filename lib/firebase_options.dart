@@ -41,46 +41,51 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCds9EEoDB5Wqa3Yd6Hwl5udrgce8OcuGU',
-    appId: '1:964630629467:web:269febf87215ebb1bbc37e',
-    messagingSenderId: '964630629467',
-    projectId: 'booksy-app-54cd3',
-    authDomain: 'booksy-app-54cd3.firebaseapp.com',
-    storageBucket: 'booksy-app-54cd3.firebasestorage.app',
+    apiKey: 'AIzaSyA3_Lq6k6C6pB02CXRJT7r_p02ew1T7kas',
+    appId: '1:448287078983:web:9f387414d41b159eb50f62',
+    messagingSenderId: '448287078983',
+    projectId: 'friendlychat-29ca2',
+    authDomain: 'friendlychat-29ca2.firebaseapp.com',
+    storageBucket: 'friendlychat-29ca2.appspot.com',
+    measurementId: 'G-HGP1W0BMZV',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAetZJg3La1Ex9xG-VR-7IMsYjUIfRsD1Y',
-    appId: '1:964630629467:android:6eda59767b2e6f5dbbc37e',
-    messagingSenderId: '964630629467',
-    projectId: 'booksy-app-54cd3',
-    storageBucket: 'booksy-app-54cd3.firebasestorage.app',
+    apiKey: 'AIzaSyAhPsyzh8UvchyW_bQnpLYuAFAgtp4xlZM',
+    appId: '1:448287078983:android:afc8abecbfcd9cd8b50f62',
+    messagingSenderId: '448287078983',
+    projectId: 'friendlychat-29ca2',
+    storageBucket: 'friendlychat-29ca2.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCZ4yprX4MHLwtgmDUHquPUKYCOdQreMWg',
-    appId: '1:964630629467:ios:d97bf3acea87235fbbc37e',
-    messagingSenderId: '964630629467',
-    projectId: 'booksy-app-54cd3',
-    storageBucket: 'booksy-app-54cd3.firebasestorage.app',
+    apiKey: 'AIzaSyBcP_UwmvOb9RmZKe9Vql7BGUEjjnaH6RA',
+    appId: '1:448287078983:ios:f92b31bcf3fd36fcb50f62',
+    messagingSenderId: '448287078983',
+    projectId: 'friendlychat-29ca2',
+    storageBucket: 'friendlychat-29ca2.appspot.com',
+    iosClientId: '448287078983-614585dml83pnhksfk8mr9rka9cujct5.apps.googleusercontent.com',
     iosBundleId: 'com.example.booksyApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCZ4yprX4MHLwtgmDUHquPUKYCOdQreMWg',
-    appId: '1:964630629467:ios:d97bf3acea87235fbbc37e',
-    messagingSenderId: '964630629467',
-    projectId: 'booksy-app-54cd3',
-    storageBucket: 'booksy-app-54cd3.firebasestorage.app',
+    apiKey: 'AIzaSyBcP_UwmvOb9RmZKe9Vql7BGUEjjnaH6RA',
+    appId: '1:448287078983:ios:f92b31bcf3fd36fcb50f62',
+    messagingSenderId: '448287078983',
+    projectId: 'friendlychat-29ca2',
+    storageBucket: 'friendlychat-29ca2.appspot.com',
+    iosClientId: '448287078983-614585dml83pnhksfk8mr9rka9cujct5.apps.googleusercontent.com',
     iosBundleId: 'com.example.booksyApp',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyCds9EEoDB5Wqa3Yd6Hwl5udrgce8OcuGU',
-    appId: '1:964630629467:web:1d64aff9a4920fffbbc37e',
-    messagingSenderId: '964630629467',
-    projectId: 'booksy-app-54cd3',
-    authDomain: 'booksy-app-54cd3.firebaseapp.com',
-    storageBucket: 'booksy-app-54cd3.firebasestorage.app',
+    apiKey: 'AIzaSyCk0_liQtKpEYDyYFlXErnaZqjHKLWXRF0',
+    appId: '1:448287078983:web:4dab2d5312e572f7b50f62',
+    messagingSenderId: '448287078983',
+    projectId: 'friendlychat-29ca2',
+    authDomain: 'friendlychat-29ca2.firebaseapp.com',
+    storageBucket: 'friendlychat-29ca2.appspot.com',
+    measurementId: 'G-ZEQWM6MSXS',
   );
+
 }

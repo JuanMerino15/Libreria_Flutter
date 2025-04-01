@@ -8,7 +8,7 @@
     <application
         android:label="booksy_app"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/booksy_app">
 
         <activity
             android:name=".MainActivity"

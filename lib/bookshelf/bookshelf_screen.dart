@@ -2,18 +2,37 @@ import 'package:booksy_app/add_book/add_book_screen.dart';
 import 'package:booksy_app/book_details/book_details_screen.dart';
 import 'package:booksy_app/model/book.dart';
 import 'package:booksy_app/services/books_services.dart';
-
 import 'package:booksy_app/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 
 
 class BookshelfScreen extends StatelessWidget {
-  const BookshelfScreen({super.key});
-
+  BookshelfScreen({super.key});
+  InterstitialAd? _ad;
   @override
   Widget build(BuildContext context) {
+    InterstitialAd.load(adUnitId: "ca-app-pub-3940256099942544/1033173712",
+    request: const AdRequest(), adLoadCallback: InterstitialAdLoadCallback(
+      onAdLoaded: (ad){
+        print("Ad esta cargado");
+        _ad = ad;
+        _ad!.fullScreenContentCallback = FullScreenContentCallback(
+          onAdDismissedFullScreenContent: (ad) {
+            _navigateToAddNewBookScreen(context);
+          },
+          onAdFailedToShowFullScreenContent: (ad, error) {
+            print(error);
+             _navigateToAddNewBookScreen(context);
+          }
+        );
+      }, 
+      onAdFailedToLoad: (error){
+        print(error);
+       
+      }));
       return BlocBuilder<BookshelfBloc, BookshelfState>(
       builder: (context, bookshelfState)  {
         var emptyListWidget = Center(
@@ -29,7 +48,11 @@ class BookshelfScreen extends StatelessWidget {
       children: [
         Expanded(child: mainWidget),
         ElevatedButton(onPressed: () {
+          if (_ad != null) {
+            _ad!.show();
+          }else {
           _navigateToAddNewBookScreen(context);
+          }
           
         }, child: const Text("Agregar nuevo libro"))
       ],

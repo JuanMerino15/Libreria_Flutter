@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:booksy_app/model/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class BooksService{
@@ -13,7 +12,7 @@ class BooksService{
    toFirestore: (book, _) => book.toJson(),);
 
   Future<List<Book>>getLastBooks() async {
-     var result = await booksRef.limit(10).get().then((value) => value);
+     var result = await booksRef.limit(5).get().then((value) => value);
      List<Book> books = [];
      for (var doc in result.docs) {
       books.add(doc.data());
